@@ -7,7 +7,7 @@ export default function Navbar() {
 
   return (
   <nav className="bg-transparent backdrop-blur-md text-gray-100 py-4 px-6 flex justify-between items-center fixed top-0 left-0 w-full z-50 border-b border-gray-800">
-      <h1 className="text-lg font-bold tracking-wide">Aditya Lazuardi</h1>
+      <h1 className="text-lg font-bold tracking-wide">Mohammad Aditya Lazuardi</h1>
       <button
         className="md:hidden text-gray-300"
         onClick={() => setOpen(!open)}

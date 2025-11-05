@@ -42,11 +42,11 @@ export default function Page() {
       </section>
 
       <section className="fade-in">
-        <OrganizationalExperienceSection />
+        <ProjectsSection />
       </section>
 
       <section className="fade-in">
-        <ProjectsSection />
+        <OrganizationalExperienceSection />
       </section>
 
       <section className="fade-in">
