@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { createPortal } from 'react-dom';
+import ClientPortal from './ClientPortal';
 
 export default function ExperienceSection() {
   const experiences = [
@@ -84,8 +84,8 @@ export default function ExperienceSection() {
           </div>
         ))}
 
-        {/* Image modal */}
-        {imageModal.open && createPortal(
+        {/* Image Modal */}
+        {imageModal.open && typeof window !== 'undefined' && createPortal(
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
             <div className="relative max-w-4xl w-full bg-[#232b3e] rounded-lg p-4 shadow-2xl">
               <button onClick={closeImageModal} className="absolute top-3 right-3 text-3xl text-gray-300 hover:text-white">×</button>

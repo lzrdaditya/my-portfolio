@@ -4,18 +4,22 @@ import { useEffect, useState } from 'react';
 
 export default function ParallaxBackground() {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     if (typeof window !== 'undefined') {
       const handleScroll = () => {
-        const position = window.scrollY;
-        setScrollPosition(position);
+        requestAnimationFrame(() => {
+          setScrollPosition(window.scrollY);
+        });
       };
 
       window.addEventListener('scroll', handleScroll, { passive: true });
 
       return () => {
         window.removeEventListener('scroll', handleScroll);
+        setIsMounted(false);
       };
     }
   }, []);

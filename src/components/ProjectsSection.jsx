@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import ClientPortal from './ClientPortal';
 
 export default function ProjectsSection() {
   const scrollContainerRef = useRef(null);
@@ -177,12 +177,13 @@ export default function ProjectsSection() {
           </div>
         ))}
       {/* Modal Popup for More Details */}
-      {selectedProj && createPortal(
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" style={{animation: 'fadeInBg 0.2s'}}>
-          <div 
-            className="bg-[#232b3e] rounded-xl p-8 max-w-3xl w-full relative shadow-2xl animate-popup-open"
-            style={{animation: 'popupOpen 0.25s cubic-bezier(0.4,0,0.2,1)'}}
-          >
+      {selectedProj && (
+        <ClientPortal>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" style={{animation: 'fadeInBg 0.2s'}}>
+            <div 
+              className="bg-[#232b3e] rounded-xl p-8 max-w-3xl w-full relative shadow-2xl animate-popup-open"
+              style={{animation: 'popupOpen 0.25s cubic-bezier(0.4,0,0.2,1)'}}
+            >
             <button
               className="absolute top-3 right-4 text-gray-400 hover:text-white text-3xl"
               onClick={() => setSelectedProj(null)}
@@ -244,8 +245,8 @@ export default function ProjectsSection() {
               background: #232b3e;
             }
           `}</style>
-        </div>,
-        document.body
+          </div>
+        </ClientPortal>
       )}
       </div>
     </section>
