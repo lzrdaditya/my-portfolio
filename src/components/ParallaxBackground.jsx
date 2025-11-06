@@ -6,16 +6,18 @@ export default function ParallaxBackground() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const position = window.scrollY;
-      setScrollPosition(position);
-    };
+    if (typeof window !== 'undefined') {
+      const handleScroll = () => {
+        const position = window.scrollY;
+        setScrollPosition(position);
+      };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
 
   const maxScroll = 1500;

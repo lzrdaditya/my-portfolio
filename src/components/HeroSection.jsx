@@ -5,17 +5,37 @@ import { useEffect, useState } from "react";
 export default function HeroSection() {
   const [scrollY, setScrollY] = useState(0);
 
+  const [viewportHeight, setViewportHeight] = useState(0);
+
   useEffect(() => {
-    const handleScroll = () => {
+    if (typeof window !== 'undefined') {
+      // Initialize viewport height
+      setViewportHeight(window.innerHeight);
+      
+      const handleScroll = () => {
+        setScrollY(window.scrollY);
+      };
+      
+      const handleResize = () => {
+        setViewportHeight(window.innerHeight);
+      };
+      
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener("resize", handleResize, { passive: true });
+      
+      // Initial scroll position
       setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+      
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
 
   // Fade out effect: fully visible at top, fades out as you scroll past 80vh
   const fadeOutStart = 0;
-  const fadeOutEnd = window.innerHeight * 0.8;
+  const fadeOutEnd = viewportHeight * 0.8;
   const opacity = 1 - Math.min(1, (scrollY - fadeOutStart) / (fadeOutEnd - fadeOutStart));
 
   return (
