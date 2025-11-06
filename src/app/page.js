@@ -13,18 +13,20 @@ import ContactSection from "../components/ContactSection";
 export default function Page() {
   // Scroll fade-in animation
   useEffect(() => {
-    const fadeEls = document.querySelectorAll(".fade-in");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
+    if (typeof window !== 'undefined') {
+      const fadeEls = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
       });
-    });
 
-    fadeEls.forEach((el) => observer.observe(el));
+      fadeEls.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+      return () => observer.disconnect();
+    }
   }, []);
 
   return (
