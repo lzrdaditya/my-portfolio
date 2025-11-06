@@ -180,8 +180,7 @@ export default function ProjectsSection() {
       {selectedProj && (
         <ClientPortal>
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" style={{animation: 'fadeInBg 0.2s'}}>
-            <div 
-              className="bg-[#232b3e] rounded-xl p-8 max-w-3xl w-full relative shadow-2xl animate-popup-open"
+            <div className="bg-[#232b3e] rounded-xl p-8 max-w-3xl w-full relative shadow-2xl animate-popup-open"
               style={{animation: 'popupOpen 0.25s cubic-bezier(0.4,0,0.2,1)'}}
             >
             <button
@@ -224,27 +223,27 @@ export default function ProjectsSection() {
                 <li key={idx}>{item}</li>
               ))}
             </ul>
-          </div>
-          <style jsx global>{`
-            @keyframes popupOpen {
-              0% { opacity: 0; transform: scale(0.85); }
-              100% { opacity: 1; transform: scale(1); }
-            }
-            @keyframes fadeInBg {
-              0% { opacity: 0; }
-              100% { opacity: 1; }
-            }
-            .scrollbar-thin::-webkit-scrollbar {
-              height: 8px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-thumb {
-              background: #4fc3f799;
-              border-radius: 4px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-track {
-              background: #232b3e;
-            }
-          `}</style>
+            <style jsx global>{`
+              @keyframes popupOpen {
+                0% { opacity: 0; transform: scale(0.85); }
+                100% { opacity: 1; transform: scale(1); }
+              }
+              @keyframes fadeInBg {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+              }
+              .scrollbar-thin::-webkit-scrollbar {
+                height: 8px;
+              }
+              .scrollbar-thin::-webkit-scrollbar-thumb {
+                background: #4fc3f799;
+                border-radius: 4px;
+              }
+              .scrollbar-thin::-webkit-scrollbar-track {
+                background: #232b3e;
+              }
+            `}</style>
+            </div>
           </div>
         </ClientPortal>
       )}
