@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ParallaxBackground from "../components/ParallaxBackground";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "Mohammad Aditya Lazuardi | Portfolio",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           </main>
           <Footer className="relative z-50" />
         </div>
+        <Analytics />
       </body>
     </html>
   );
