@@ -85,19 +85,20 @@ export default function ExperienceSection() {
         ))}
 
         {/* Image Modal */}
-        {imageModal.open && typeof window !== 'undefined' && createPortal(
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-            <div className="relative max-w-4xl w-full bg-[#232b3e] rounded-lg p-4 shadow-2xl">
-              <button onClick={closeImageModal} className="absolute top-3 right-3 text-3xl text-gray-300 hover:text-white">×</button>
-              <div className="flex items-center justify-center">
-                <button onClick={prevImage} className="text-2xl text-gray-300 px-3" aria-label="Previous">‹</button>
-                <img src={imageModal.images[imageModal.index]} alt={`image ${imageModal.index+1}`} className="max-h-[60vh] object-contain rounded" />
-                <button onClick={nextImage} className="text-2xl text-gray-300 px-3" aria-label="Next">›</button>
+        {imageModal.open && (
+          <ClientPortal>
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+              <div className="relative max-w-4xl w-full bg-[#232b3e] rounded-lg p-4 shadow-2xl">
+                <button onClick={closeImageModal} className="absolute top-3 right-3 text-3xl text-gray-300 hover:text-white">×</button>
+                <div className="flex items-center justify-center">
+                  <button onClick={prevImage} className="text-2xl text-gray-300 px-3" aria-label="Previous">‹</button>
+                  <img src={imageModal.images[imageModal.index]} alt={`image ${imageModal.index+1}`} className="max-h-[60vh] object-contain rounded" />
+                  <button onClick={nextImage} className="text-2xl text-gray-300 px-3" aria-label="Next">›</button>
+                </div>
+                <div className="text-center text-sm text-gray-400 mt-2">{imageModal.index + 1} / {imageModal.images.length}</div>
               </div>
-              <div className="text-center text-sm text-gray-400 mt-2">{imageModal.index + 1} / {imageModal.images.length}</div>
             </div>
-          </div>,
-          document.body
+          </ClientPortal>
         )}
       </div>
     </section>

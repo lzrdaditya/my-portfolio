@@ -5,6 +5,29 @@ import ClientPortal from './ClientPortal';
 
 export default function ProjectsSection() {
   const scrollContainerRef = useRef(null);
+  const [imageModal, setImageModal] = useState({ open: false, images: [], index: 0 });
+
+  const openImageModal = (images, startIndex) => {
+    setImageModal({ open: true, images, index: startIndex });
+  };
+
+  const closeImageModal = () => {
+    setImageModal({ open: false, images: [], index: 0 });
+  };
+
+  const nextImage = () => {
+    setImageModal(prev => ({
+      ...prev,
+      index: (prev.index + 1) % prev.images.length
+    }));
+  };
+
+  const prevImage = () => {
+    setImageModal(prev => ({
+      ...prev,
+      index: (prev.index - 1 + prev.images.length) % prev.images.length
+    }));
+  };
   
   const projects = [
     {
@@ -149,20 +172,26 @@ export default function ProjectsSection() {
             {proj.images && proj.images.length > 0 && (
               <div className="flex gap-1 justify-center items-center pt-3 pb-1 px-2">
                 {proj.images.slice(0, 3).map((img, idx) => (
-                  <img
+                  <button
                     key={idx}
-                    src={img}
-                    alt={proj.name + ' thumbnail ' + (idx+1)}
-                    className="w-14 h-10 object-cover rounded border shadow-sm"
-                    draggable="false"
-                  />
+                    onClick={() => openImageModal(proj.images, idx)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                  >
+                    <img
+                      src={img}
+                      alt={proj.name + ' thumbnail ' + (idx+1)}
+                      className="w-14 h-10 object-cover rounded border shadow-sm"
+                      draggable="false"
+                    />
+                  </button>
                 ))}
               </div>
             )}
             <img
               src={proj.img}
               alt={proj.name}
-              className="w-full h-40 object-cover"
+              className="w-full h-40 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+              onClick={() => openImageModal(proj.images, 0)}
             />
             <div className="p-4 text-left">
               <h3 className="text-lg font-semibold mb-2">{proj.name}</h3>
@@ -248,6 +277,27 @@ export default function ProjectsSection() {
         </ClientPortal>
       )}
       </div>
+
+      {/* Image Modal */}
+      {imageModal.open && (
+        <ClientPortal>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+            <div className="relative max-w-4xl w-full bg-[#232b3e] rounded-lg p-4 shadow-2xl">
+              <button onClick={closeImageModal} className="absolute top-3 right-3 text-3xl text-gray-300 hover:text-white">×</button>
+              <div className="flex items-center justify-center">
+                <button onClick={prevImage} className="text-2xl text-gray-300 px-3" aria-label="Previous">‹</button>
+                <img 
+                  src={imageModal.images[imageModal.index]} 
+                  alt={`Project image ${imageModal.index + 1}`} 
+                  className="max-h-[60vh] object-contain rounded" 
+                />
+                <button onClick={nextImage} className="text-2xl text-gray-300 px-3" aria-label="Next">›</button>
+              </div>
+              <div className="text-center text-sm text-gray-400 mt-2">{imageModal.index + 1} / {imageModal.images.length}</div>
+            </div>
+          </div>
+        </ClientPortal>
+      )}
     </section>
   );
 }
